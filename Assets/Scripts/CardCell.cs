@@ -8,27 +8,24 @@ public class CardCell : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer;
 
     private string identifier;
-    private CardSelecter _selecter;
     private TaskGenerator _generator;
+    private Restarter _restarter;
 
     public string Identifier => identifier;
 
     private void Awake()
     {
         Debug.Log("CardCell");
-        _selecter = FindObjectOfType<CardSelecter>();
         _generator = FindObjectOfType<TaskGenerator>();
     }
 
     private void OnEnable()
     {
-        //_selecter.OnTaskCardSelected += OnDelete;
         _generator.OnTaskGenerated += OnDelete;
     }
 
     private void OnDisable()
     {
-        //_selecter.OnTaskCardSelected -= OnDelete;
         _generator.OnTaskGenerated -= OnDelete;
     }
 

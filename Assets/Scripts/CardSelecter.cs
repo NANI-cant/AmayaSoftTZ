@@ -14,6 +14,7 @@ public class CardSelecter : MonoBehaviour
     private string taskIdentifier = "";
     private TaskGenerator _taskGenerator;
     private Difficult _difficult;
+    private Restarter _restarter;
     private bool canSelect = true;
 
     private void Awake()
@@ -21,18 +22,21 @@ public class CardSelecter : MonoBehaviour
         Debug.Log("Selecter");
         _taskGenerator = GetComponent<TaskGenerator>();
         _difficult = GetComponent<Difficult>();
+        _restarter = FindObjectOfType<Restarter>();
     }
 
     private void OnEnable()
     {
         _taskGenerator.OnTaskGenerated += SetTaskIdentifier;
         _difficult.OnGameEnd += OnCantSelect;
+        _restarter.OnRestart +=OnCanSelect;
     }
 
     private void OnDisable()
     {
         _taskGenerator.OnTaskGenerated -= SetTaskIdentifier;
         _difficult.OnGameEnd -= OnCantSelect;
+        _restarter.OnRestart -=OnCanSelect;
     }
 
     private void Update()

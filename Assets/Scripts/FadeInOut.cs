@@ -8,13 +8,7 @@ using DG.Tweening;
 [RequireComponent(typeof(Image))]
 public class FadeInOut : MonoBehaviour
 {
-    public void FadeIn(float endValue)
-    {
-        Image image = GetComponent<Image>();
-        image.DOFade(endValue, 1f);
-    }
-
-    public void FadeOut(float endValue)
+    public void Fade(float endValue)
     {
         Image image = GetComponent<Image>();
         image.DOFade(endValue, 1f);

@@ -33,12 +33,14 @@ public class TaskGenerator : MonoBehaviour
     private List<string> usedIdentifierds = new List<string>();
     private CardRandomizer _randomizer;
     private Difficult _difficult;
+    private Restarter _restarter;
 
     private void Awake()
     {
         Debug.Log("TaskGenerator");
         _randomizer = GetComponent<CardRandomizer>();
         _difficult = GetComponent<Difficult>();
+        _restarter = FindObjectOfType<Restarter>();
     }
 
     private void Start()
@@ -49,11 +51,13 @@ public class TaskGenerator : MonoBehaviour
     private void OnEnable()
     {
         _difficult.OnLevelChange += GenerateTask;
+        _restarter.OnRestart += GenerateTask;
     }
 
     private void OnDisable()
     {
         _difficult.OnLevelChange -= GenerateTask;
+        _restarter.OnRestart -= GenerateTask;
     }
 
     private void GenerateTask()

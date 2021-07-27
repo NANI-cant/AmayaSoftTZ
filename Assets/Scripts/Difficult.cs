@@ -16,6 +16,7 @@ public class Difficult : MonoBehaviour
 
     private int currentCardCount = 0;
     private CardSelecter _selecter;
+    private Restarter _restarter;
 
     public int CurrentCardCount => currentCardCount;
     public int StartCardCount => startCardCount;
@@ -25,16 +26,19 @@ public class Difficult : MonoBehaviour
         Debug.Log("Difficult");
         currentCardCount = startCardCount;
         _selecter = GetComponent<CardSelecter>();
+        //_restarter = FindObjectOfType<Restarter>();
     }
 
     private void OnEnable()
     {
         _selecter.OnTaskCardSelected += ChangeDifficult;
+        //_restarter.OnRestart += ResetDifficult;
     }
 
     private void OnDisable()
     {
         _selecter.OnTaskCardSelected -= ChangeDifficult;
+        //_restarter.OnRestart -= ResetDifficult;
     }
 
     private void ChangeDifficult()
@@ -44,10 +48,15 @@ public class Difficult : MonoBehaviour
         {
             gameEnding?.Invoke();
             OnGameEnd?.Invoke();
+            ResetDifficult();
         }
         else
         {
             OnLevelChange?.Invoke();
         }
+    }
+
+    private void ResetDifficult(){
+        currentCardCount = startCardCount;
     }
 }
