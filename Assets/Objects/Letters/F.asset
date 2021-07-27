@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: F
   m_EditorClassIdentifier: 
   sprite: {fileID: -6426668015567183463, guid: 0b612b2247be68a4d942927600f7f209, type: 3}
-  symbol: F
+  identifier: F

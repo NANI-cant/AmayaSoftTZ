@@ -13,7 +13,7 @@ public class CardRandomizer : MonoBehaviour
 
     public Card GetCard(Collection collection, string taskIdentifier)
     {
-        Card newCard = new Card();
+        Card newCard;
         while (true)
         {
             int randomIndex = Random.Range(0, collection.Count);

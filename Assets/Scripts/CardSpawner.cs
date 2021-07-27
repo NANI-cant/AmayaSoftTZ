@@ -13,8 +13,8 @@ public class CardSpawner : MonoBehaviour
     private Difficult _difficult;
     private CardRandomizer _randomizer;
 
-    readonly private float cardSize = 3.5f;
-    readonly private float paddingSize = 1f;
+    readonly private float cardSize = 4f;
+    readonly private float paddingSize = 0.25f;
 
     private void Awake()
     {
@@ -37,6 +37,8 @@ public class CardSpawner : MonoBehaviour
     private void CreateCards(TaskGenerationResult result)
     {
         int cardCount = _difficult.CurrentCardCount;
+        int currentCardNumber = 0;
+        int taskCardNumber = Random.Range(0, cardCount);
         KeyValuePair<int, int> widthHeight = CalculateWidthHeight(cardCount);
         int width = widthHeight.Key;
         int height = widthHeight.Value;
@@ -46,9 +48,17 @@ public class CardSpawner : MonoBehaviour
         {
             for (int j = 0; j < width; j++)
             {
-                Card newCard = _randomizer.GetCard(result.Collection,result.Identifier);
-                CardCell newCardCell =  Instantiate(template, currentPosition, Quaternion.identity);
-                newCardCell.Initialize(newCard.Sprite,newCard.Identifier);
+                CardCell newCardCell = Instantiate(template, currentPosition, Quaternion.identity);
+                if (currentCardNumber == taskCardNumber)
+                {
+                    newCardCell.Initialize(result.Sprite, result.Identifier);
+                }
+                else
+                {
+                    Card newCard = _randomizer.GetCard(result.Collection, result.Identifier);
+                    newCardCell.Initialize(newCard.Sprite, newCard.Identifier);
+                }
+                currentCardNumber++;
 
                 currentPosition.x += cardSize + paddingSize;
             }

@@ -7,19 +7,23 @@ using UnityEngine.Events;
 public class TaskGenerationResult
 {
     private string identifier;
+    private Sprite sprite;
     private Collection collection;
 
-    public TaskGenerationResult(string id, Collection col)
+    public TaskGenerationResult(string id, Sprite sp, Collection col)
     {
         identifier = id;
+        sprite = sp;
         collection = col;
     }
 
     public string Identifier => identifier;
+    public Sprite Sprite => sprite;
     public Collection Collection => collection;
 }
 
 [RequireComponent(typeof(CardRandomizer))]
+[RequireComponent(typeof(CardSelecter))]
 public class TaskGenerator : MonoBehaviour
 {
     [SerializeField] private List<Collection> cardCollections;
@@ -28,11 +32,13 @@ public class TaskGenerator : MonoBehaviour
 
     private List<string> usedIdentifierds = new List<string>();
     private CardRandomizer _randomizer;
+    private Difficult _difficult;
 
     private void Awake()
     {
         Debug.Log("TaskGenerator");
         _randomizer = GetComponent<CardRandomizer>();
+        _difficult = GetComponent<Difficult>();
     }
 
     private void Start()
@@ -42,18 +48,18 @@ public class TaskGenerator : MonoBehaviour
 
     private void OnEnable()
     {
-
+        _difficult.OnLevelChange += GenerateTask;
     }
 
     private void OnDisable()
     {
-
+        _difficult.OnLevelChange -= GenerateTask;
     }
 
     private void GenerateTask()
     {
         int currentCollection = Random.Range(0, cardCollections.Count);
-        Card newCard = new Card();
+        Card newCard;
         while (true)
         {
             newCard = _randomizer.GetCard(cardCollections[currentCollection]);
@@ -66,7 +72,7 @@ public class TaskGenerator : MonoBehaviour
                 break;
             }
         }
-        OnTaskGenerated?.Invoke(new TaskGenerationResult(newCard.Identifier, cardCollections[currentCollection]));
+        OnTaskGenerated?.Invoke(new TaskGenerationResult(newCard.Identifier, newCard.Sprite, cardCollections[currentCollection]));
     }
 
     private bool CheckIdentifier(string id)
