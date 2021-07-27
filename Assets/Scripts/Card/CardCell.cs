@@ -9,13 +9,11 @@ public class CardCell : MonoBehaviour
 
     private string identifier;
     private TaskGenerator _generator;
-    private Restarter _restarter;
 
     public string Identifier => identifier;
 
     private void Awake()
     {
-        Debug.Log("CardCell");
         _generator = FindObjectOfType<TaskGenerator>();
     }
 
@@ -29,14 +27,14 @@ public class CardCell : MonoBehaviour
         _generator.OnTaskGenerated -= OnDelete;
     }
 
+    private void OnDelete(TaskGenerationResult result)
+    {
+        Destroy(gameObject);
+    }
+
     public void Initialize(Sprite newSprite, string newIdentifier)
     {
         _renderer.sprite = newSprite;
         identifier = newIdentifier;
-    }
-
-    private void OnDelete(TaskGenerationResult result)
-    {
-        Destroy(gameObject);
     }
 }

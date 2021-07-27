@@ -13,28 +13,24 @@ public class TaskText : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("TaskText");
         text = GetComponent<Text>();
         _taskGenerator = FindObjectOfType<TaskGenerator>();
-        _difficult = FindObjectOfType<Difficult>();
     }
 
     private void Start()
     {
-        text.DOColor(new Color(0, 0, 0, 0), 0f);
+        text.DOFade(0, 0f);
         text.DOFade(1, 2f);
     }
 
     private void OnEnable()
     {
         _taskGenerator.OnTaskGenerated += SetText;
-        _difficult.OnGameEnd += Hide;
     }
 
     private void OnDisable()
     {
         _taskGenerator.OnTaskGenerated -= SetText;
-        _difficult.OnGameEnd -= Hide;
     }
 
     private void SetText(TaskGenerationResult result)

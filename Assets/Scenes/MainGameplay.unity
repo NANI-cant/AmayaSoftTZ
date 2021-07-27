@@ -659,6 +659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardCollections:
   - {fileID: 11400000, guid: d3d1f56c63828154093860fa0447b12c, type: 2}
+  - {fileID: 11400000, guid: 53d2e39f19f1bc84687c0db937199d0c, type: 2}
 --- !u!114 &961876572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,6 +702,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template: {fileID: 8321096277394311501, guid: d3c4dc8d9c25c124a904766507d39023,
     type: 3}
+  cardSize: 4
+  paddingSize: 0.25
 --- !u!114 &961876575
 MonoBehaviour:
   m_ObjectHideFlags: 0

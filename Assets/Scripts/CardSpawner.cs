@@ -8,17 +8,15 @@ using UnityEngine;
 public class CardSpawner : MonoBehaviour
 {
     [SerializeField] private CardCell template;
+    [SerializeField] private float cardSize = 4f;
+    [SerializeField] private float paddingSize = 0.25f;
 
     private TaskGenerator _taskGenerator;
     private Difficult _difficult;
     private CardRandomizer _randomizer;
 
-    readonly private float cardSize = 4f;
-    readonly private float paddingSize = 0.25f;
-
     private void Awake()
     {
-        Debug.Log("CardSpawner");
         _taskGenerator = GetComponent<TaskGenerator>();
         _difficult = GetComponent<Difficult>();
         _randomizer = GetComponent<CardRandomizer>();
@@ -49,6 +47,7 @@ public class CardSpawner : MonoBehaviour
             for (int j = 0; j < width; j++)
             {
                 CardCell newCardCell = Instantiate(template, currentPosition, Quaternion.identity);
+                newCardCell.gameObject.transform.localScale = new Vector2(cardSize, cardSize);
                 if (currentCardNumber == taskCardNumber)
                 {
                     newCardCell.Initialize(result.Sprite, result.Identifier);
@@ -86,7 +85,7 @@ public class CardSpawner : MonoBehaviour
             }
         }
 
-        Debug.Log("Find W h" + widthHeightPair.Key.ToString() + widthHeightPair.Value.ToString());
+        Debug.Log("Found W H " + widthHeightPair.Key.ToString() + " " + widthHeightPair.Value.ToString());
         return widthHeightPair;
     }
 }

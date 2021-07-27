@@ -15,41 +15,38 @@ public class CardCellEffector : MonoBehaviour
     private void Start()
     {
         Difficult dif = FindObjectOfType<Difficult>();
-        if(dif.StartCardCount == dif.CurrentCardCount){
+        if (dif.StartCardCount == dif.CurrentCardCount)
+        {
             DoBounce();
         }
     }
 
-    public void WrongCardSelected()
+    public void CardSelected(bool isCorrect)
     {
         if (!isSelected)
         {
             isSelected = true;
-            onWrong?.Invoke();
+            if(isCorrect){
+                onCorrect?.Invoke();
+            }else{
+                onWrong?.Invoke();
+            }
             Invoke(nameof(ResetStatus), 0.5f);
         }
-    }
-
-    public void CorrectCardSelected()
-    {
-        if (!isSelected)
-        {
-            isSelected = true;
-            onCorrect?.Invoke();
-            Invoke(nameof(ResetStatus), 0.5f);
-        }
-    }
-
-    public void DoBounce(){
-        objectInCard.DOShakeScale(0.5f, new Vector3(0.6f,0.6f,0f),10,0);
-    }
-
-    public void DoShake(){
-        objectInCard.DOShakePosition(0.5f, 0.6f);
     }
 
     private void ResetStatus()
     {
         isSelected = false;
+    }
+
+    public void DoBounce()
+    {
+        objectInCard.DOShakeScale(0.5f, new Vector3(0.15f, 0.15f, 0f), 10, 0);
+    }
+
+    public void DoShake()
+    {
+        objectInCard.DOShakePosition(0.5f, 0.15f);
     }
 }

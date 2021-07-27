@@ -9,17 +9,16 @@ public class CardSelecter : MonoBehaviour
     [SerializeField] private LayerMask cardLayer;
     [SerializeField] private Camera mainCamera;
 
-    public UnityAction OnTaskCardSelected;
-
     private string taskIdentifier = "";
     private TaskGenerator _taskGenerator;
     private Difficult _difficult;
     private Restarter _restarter;
     private bool canSelect = true;
 
+    public UnityAction OnTaskCardSelected;
+
     private void Awake()
     {
-        Debug.Log("Selecter");
         _taskGenerator = GetComponent<TaskGenerator>();
         _difficult = GetComponent<Difficult>();
         _restarter = FindObjectOfType<Restarter>();
@@ -47,12 +46,12 @@ public class CardSelecter : MonoBehaviour
             {
                 if (cardCell.Identifier == taskIdentifier)
                 {
-                    cardCell.GetComponent<CardCellEffector>().CorrectCardSelected();
-                    Invoke(nameof(WaitForEffect), 0.6f);
+                    cardCell.GetComponent<CardCellEffector>().CardSelected(true);
+                    Invoke(nameof(WaitForEffect), 0.5f);
                 }
                 else
                 {
-                    cardCell.GetComponent<CardCellEffector>().WrongCardSelected();
+                    cardCell.GetComponent<CardCellEffector>().CardSelected(false);
                 }
             }
         }

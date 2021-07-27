@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-
 [RequireComponent(typeof(Image))]
-public class FadeInOut : MonoBehaviour
+public class Fader : MonoBehaviour
 {
     public void Fade(float endValue)
     {

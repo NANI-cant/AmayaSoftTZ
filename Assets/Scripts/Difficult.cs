@@ -11,34 +11,30 @@ public class Difficult : MonoBehaviour
     [SerializeField] private int maxCards;
     [SerializeField] private UnityEvent gameEnding;
 
-    public UnityAction OnLevelChange;
-    public UnityAction OnGameEnd;
-
     private int currentCardCount = 0;
     private CardSelecter _selecter;
     private Restarter _restarter;
 
+    public UnityAction OnLevelChange;
+    public UnityAction OnGameEnd;
+
     public int CurrentCardCount => currentCardCount;
     public int StartCardCount => startCardCount;
-
+    
     private void Awake()
     {
-        Debug.Log("Difficult");
         currentCardCount = startCardCount;
         _selecter = GetComponent<CardSelecter>();
-        //_restarter = FindObjectOfType<Restarter>();
     }
 
     private void OnEnable()
     {
         _selecter.OnTaskCardSelected += ChangeDifficult;
-        //_restarter.OnRestart += ResetDifficult;
     }
 
     private void OnDisable()
     {
         _selecter.OnTaskCardSelected -= ChangeDifficult;
-        //_restarter.OnRestart -= ResetDifficult;
     }
 
     private void ChangeDifficult()
@@ -56,7 +52,8 @@ public class Difficult : MonoBehaviour
         }
     }
 
-    private void ResetDifficult(){
+    private void ResetDifficult()
+    {
         currentCardCount = startCardCount;
     }
 }

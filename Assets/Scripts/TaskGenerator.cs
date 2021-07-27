@@ -28,16 +28,15 @@ public class TaskGenerator : MonoBehaviour
 {
     [SerializeField] private List<Collection> cardCollections;
 
-    public UnityAction<TaskGenerationResult> OnTaskGenerated;
-
     private List<string> usedIdentifierds = new List<string>();
     private CardRandomizer _randomizer;
     private Difficult _difficult;
     private Restarter _restarter;
 
+    public UnityAction<TaskGenerationResult> OnTaskGenerated;
+
     private void Awake()
     {
-        Debug.Log("TaskGenerator");
         _randomizer = GetComponent<CardRandomizer>();
         _difficult = GetComponent<Difficult>();
         _restarter = FindObjectOfType<Restarter>();
@@ -68,7 +67,7 @@ public class TaskGenerator : MonoBehaviour
         {
             newCard = _randomizer.GetCard(cardCollections[currentCollection]);
 
-            Debug.Log("New Card " + newCard.Identifier);
+            Debug.Log("New Task Card " + newCard.Identifier);
 
             if (CheckIdentifier(newCard.Identifier))
             {
